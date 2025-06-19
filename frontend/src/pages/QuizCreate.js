@@ -44,7 +44,7 @@ function QuizCreate() {
     e.preventDefault();
     // JWT token ile backend'e gönderilecek (şimdilik token yoksa hata verir)
     try {
-      await axios.post('${import.meta.env.BACKEND_URL}/api/quiz', {
+      await axios.post('https://quiz-master-backend-p6bs.onrender.com/api/quiz', {
         title,
         description,
         questions

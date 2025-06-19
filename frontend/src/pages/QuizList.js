@@ -21,7 +21,9 @@ function QuizList() {
 
   // Sayfa yüklendiğinde quizleri backend'den çek
   useEffect(() => {
-    axios.get('${import.meta.env.BACKEND_URL}/api/quiz')
+    axios.get('https://quiz-master-backend-p6bs.onrender.com/api/quiz', {
+      headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+    })
       .then(res => setQuizzes(res.data)) // Başarılıysa quizleri state'e yaz
       .catch(() => setQuizzes([])); // Hata olursa boş dizi
   }, []);
@@ -85,7 +87,7 @@ function QuizList() {
   // Quiz başlatma fonksiyonu
   const handleStart = async (quizId) => {
     try {
-      const res = await axios.post(`${import.meta.env.BACKEND_URL}/api/quiz/${quizId}/start`);
+      const res = await axios.post(`https://quiz-master-backend-p6bs.onrender.com/api/quiz/${quizId}/start`);
       const roomCode = res.data.roomCode;
       navigate('/lobby', { state: { roomCode, isOwner: true } });
     } catch {
@@ -96,7 +98,7 @@ function QuizList() {
   // Admin quiz canlı başlatma
   const handleAdminStart = async (quizId) => {
     try {
-      const res = await axios.post(`/api/admin/quiz/${quizId}/start`, {}, {
+      const res = await axios.post(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${quizId}/start`, {}, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
       const roomCode = res.data.roomCode;
@@ -109,7 +111,7 @@ function QuizList() {
   // Admin quiz canlı oturumu sonlandırma
   const handleAdminEndLive = async (quizId) => {
     try {
-      await axios.post(`/api/admin/quiz/${quizId}/end`, {}, {
+      await axios.post(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${quizId}/end`, {}, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
       setLiveRoomCodes(prev => {

@@ -1,8 +1,8 @@
 // API istekleri için servis fonksiyonları
 import axios from 'axios';
 
-// Backend API ana adresi
-const API_URL = '${import.meta.env.BACKEND_URL}/api';
+// Backend API ana adresi (sadece localhost)
+const API_URL = 'https://quiz-master-backend-p6bs.onrender.com/api';
 
 // Kullanıcı kaydı (register)
 // username, email ve password ile yeni kullanıcı oluşturur

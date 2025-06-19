@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('${import.meta.env.BACKEND_URL}/api/user/me', {
+      axios.get('https://quiz-master-backend-p6bs.onrender.com/api/user/me', {
         headers: { Authorization: 'Bearer ' + token }
       }).then(res => {
         setUser(res.data);
@@ -29,7 +29,7 @@ function Home() {
     async function fetchTitles() {
       const missing = quizHistory.filter(q => q.quizId && !quizTitles[q.quizId]);
       const promises = missing.map(q =>
-        axios.get(`${import.meta.env.BACKEND_URL}/api/quiz/${q.quizId}`)
+        axios.get('https://quiz-master-backend-p6bs.onrender.com/api/quiz/' + q.quizId)
           .then(res => ({ id: q.quizId, title: res.data.title }))
           .catch(() => ({ id: q.quizId, title: 'Quiz bulunamadı' }))
       );

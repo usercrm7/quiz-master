@@ -7,7 +7,7 @@ import QuestionTimer from './QuestionTimer';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // Socket.io bağlantısı (backend ile gerçek zamanlı iletişim)
-const socket = io('${import.meta.env.BACKEND_URL}');
+const socket = io('https://quiz-master-backend-p6bs.onrender.com');
 
 // Arka plan müziği için basit bir mp3 dosyası (public klasörüne eklenmeli)
 const MUSIC_URL = process.env.PUBLIC_URL + '/quiz-music.mp3';

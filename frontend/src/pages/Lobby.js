@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const socket = io('${import.meta.env.BACKEND_URL}');
+const socket = io('https://quiz-master-backend-p6bs.onrender.com');
 
 function Lobby() {
   const [seconds, setSeconds] = useState(30);
@@ -97,10 +97,10 @@ function Lobby() {
   const handleEndQuiz = async () => {
     try {
       // Aktif quiz id'sini backend'den çekmek için roomCode ile quiz getir
-      const res = await fetch(`${import.meta.env.BACKEND_URL}/api/quiz/room/${roomCode}`);
+      const res = await fetch(`https://quiz-master-backend-p6bs.onrender.com/api/quiz/room/${roomCode}`);
       const quiz = await res.json();
       if (quiz && quiz._id) {
-        await fetch(`${import.meta.env.BACKEND_URL}/api/quiz/${quiz._id}/end`, { method: 'POST' });
+        await fetch(`https://quiz-master-backend-p6bs.onrender.com/api/quiz/${quiz._id}/end`, { method: 'POST' });
         alert('Quiz sonlandırıldı.');
         // Odayı terk et ve ana sayfaya yönlendir
         localStorage.removeItem('lobbyRoomCode');
