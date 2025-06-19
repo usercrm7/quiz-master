@@ -30,13 +30,13 @@ function AdminPanel() {
 
   useEffect(() => {
     if (tab === 'quizzes') {
-      axios.get('/api/admin/quizzes', { headers: { Authorization: 'Bearer ' + token } })
+      axios.get('https://quiz-master-backend-p6bs.onrender.com/api/admin/quizzes', { headers: { Authorization: 'Bearer ' + token } })
         .then(res => setQuizzes(res.data));
     } else if (tab === 'users') {
-      axios.get('/api/admin/users', { headers: { Authorization: 'Bearer ' + token } })
+      axios.get('https://quiz-master-backend-p6bs.onrender.com/api/admin/users', { headers: { Authorization: 'Bearer ' + token } })
         .then(res => setUsers(res.data));
     } else if (tab === 'analytics' || tab === 'overview') {
-      axios.get('/api/admin/analytics', { headers: { Authorization: 'Bearer ' + token } })
+      axios.get('https://quiz-master-backend-p6bs.onrender.com/api/admin/analytics', { headers: { Authorization: 'Bearer ' + token } })
         .then(res => setAnalytics(res.data));
     }
   }, [tab, token]);
@@ -59,7 +59,7 @@ function AdminPanel() {
         description: editDescription,
         questions: editQuestions
       };
-      const res = await axios.put(`/api/admin/quiz/${editQuiz._id}`, updated, {
+      const res = await axios.put(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${editQuiz._id}`, updated, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
       setQuizzes(quizzes.map(q => q._id === editQuiz._id ? res.data : q));
@@ -73,7 +73,7 @@ function AdminPanel() {
   // Admin quiz canlı başlatma
   const handleAdminStart = async (quizId) => {
     try {
-      const res = await axios.post(`/api/admin/quiz/${quizId}/start`, {}, {
+      const res = await axios.post(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${quizId}/start`, {}, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
       const roomCode = res.data.roomCode;
@@ -88,7 +88,7 @@ function AdminPanel() {
   // Admin quiz canlı oturumu sonlandırma
   const handleAdminEndLive = async (quizId) => {
     try {
-      await axios.post(`/api/admin/quiz/${quizId}/end`, {}, {
+      await axios.post(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${quizId}/end`, {}, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
       setLiveRoomCodes(prev => {
@@ -106,7 +106,7 @@ function AdminPanel() {
   const handleAdminDelete = async (quizId) => {
     if (window.confirm('Bu quiz silinsin mi?')) {
       try {
-        await axios.delete(`/api/admin/quiz/${quizId}`, {
+        await axios.delete(`https://quiz-master-backend-p6bs.onrender.com/api/admin/quiz/${quizId}`, {
           headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
         });
         setQuizzes(quizzes.filter(q => q._id !== quizId));
